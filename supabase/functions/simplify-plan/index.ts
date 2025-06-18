@@ -13,10 +13,14 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4'
     care_plans.simplified_plan_json.
 */
 
-interface RequestPayload {
-  care_plan_id: string
-  original_instructions: string
-}
+// ------------------------------
+// Constants / Config
+// ------------------------------
+
+const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
+const OPENROUTER_MODEL = 'openrouter/o3-mini'
+const SYSTEM_PROMPT =
+  'You are a medical discharge simplifier. Return a JSON object with the keys red_flags, medications, activities, follow_up, other. Each key should map to an array of short, patient-friendly sentences extracted from the text.'
 
 const REQUIRED_KEYS = [
   'red_flags',
@@ -24,7 +28,18 @@ const REQUIRED_KEYS = [
   'activities',
   'follow_up',
   'other',
-]
+] as const
+
+type RequiredKey = (typeof REQUIRED_KEYS)[number]
+
+// ------------------------------
+// Imports
+// ------------------------------
+
+interface RequestPayload {
+  care_plan_id: string
+  original_instructions: string
+}
 
 type SimplifiedPlan = Record<string, unknown>
 
@@ -60,8 +75,7 @@ serve(async (req) => {
   const messages = [
     {
       role: 'system',
-      content:
-        'You are a medical discharge simplifier. Return a JSON object with the keys red_flags, medications, activities, follow_up, other. Each key should map to an array of short, patient-friendly sentences extracted from the text.',
+      content: SYSTEM_PROMPT,
     },
     {
       role: 'user',
@@ -70,7 +84,7 @@ serve(async (req) => {
   ]
 
   // Call OpenRouter
-  const openRouterRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const openRouterRes = await fetch(OPENROUTER_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -79,7 +93,7 @@ serve(async (req) => {
       'X-Title': 'Aftercare Companion',
     },
     body: JSON.stringify({
-      model: 'openrouter/o3-mini',
+      model: OPENROUTER_MODEL,
       messages,
       temperature: 0.2,
     }),
