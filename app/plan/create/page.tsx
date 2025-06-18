@@ -41,17 +41,27 @@ export default function CreatePlanPage() {
         return
       }
 
-      // Insert new care plan record
-      const { error } = await supabase.from('care_plans').insert({
-        user_id: user.id,
-        original_instructions: instructions.trim(),
-        simplified_plan_json: null,
-        is_active: true,
-      })
+      // Insert new care plan record and fetch the inserted row
+      const { data: plan, error } = await supabase
+        .from('care_plans')
+        .insert({
+          user_id: user.id,
+          original_instructions: instructions.trim(),
+          simplified_plan_json: null,
+          is_active: true,
+        })
+        .select()
+        .single()
 
-      if (error) {
-        throw error
-      }
+      if (error) throw error
+
+      // Fire the Edge Function in the background to simplify text
+      supabase.functions.invoke('simplify-plan', {
+        body: {
+          care_plan_id: plan.id,
+          original_instructions: instructions.trim(),
+        },
+      })
 
       // Redirect to dashboard or plan view page
       router.push('/dashboard')
