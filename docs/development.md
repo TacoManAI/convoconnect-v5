@@ -60,3 +60,10 @@ Added lucide-react icon library to the project dependencies. This provides acces
 
 **Summary:**
 Established the foundational Next.js 14 project structure using the App Router, created the root layout with proper metadata for the Aftercare Companion application, set up global CSS with Tailwind base styles, and created a basic home page. Configured TypeScript with proper path mapping and Next.js-specific settings for optimal development experience.
+
+---
+**Task:** Resolve Authentication Testing Blocker - Enable end-to-end login flow
+**Completed On:** June 18, 2025
+
+**Summary:**
+Fixed the session-persistence problem that prevented navigation to `/dashboard` after clicking the magic link. Replaced the plain Supabase browser client with `createBrowserSupabaseClient()` from `@supabase/auth-helpers-nextjs`, which synchronises the cookie-based session established by the `/auth/callback` route. Added conditional logic in `lib/supabase.ts` to fallback to `createClient()` on the server. Updated project setup instructions: run `npm install` once, then start the dev server via `npm run dev`. Verified that users are now redirected to the dashboard and stay authenticated across refreshes.
