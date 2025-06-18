@@ -1,4 +1,4 @@
-// File: /home/project/app/layout.tsx
+// File: /Users/scottferreira/Desktop/DevSAF/Companies/cmdR/cmdR_Consulting/Clients/Step3 (Polyient)/Subsidiaries/ConvoConnect/Dev/convoconnect-v5-main/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
