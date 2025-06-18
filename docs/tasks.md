@@ -40,11 +40,12 @@
 
 ## Phase 3: Core Features - Plan Management
 
-### Task 3.1: Plan Input Interface
-- [ ] Create plan input page with large textarea
-- [ ] Add "Create Plan" button
-- [ ] Implement form validation
-- [ ] Add loading states and error handling
+### Task 3.1: Plan Input Interface ✅
+- [x] Create plan input page with large textarea
+- [x] Add "Create Plan" button
+- [x] Implement form validation
+- [x] Add loading states and error handling
+- [x] Invoke Edge Function to simplify plan and badge indicator during processing
 
 ### Task 3.2: AI Text Simplification Backend
 - [ ] Create Supabase Edge Function for plan ingestion

@@ -59,6 +59,8 @@ export default function DashboardPage() {
     }
   }
 
+  const isProcessing = !!(activePlan && !activePlan.simplified_plan_json)
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -95,10 +97,13 @@ export default function DashboardPage() {
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back!</h2>
           <p className="text-gray-600">
-            {activePlan 
-              ? "Your care plan is ready. Continue with your aftercare journey."
-              : "Let's get started by creating your personalized care plan."
-            }
+            {activePlan ? (
+              isProcessing
+                ? 'Your care plan is being simplified. Hang tight – this only takes a moment.'
+                : 'Your care plan is ready. Continue with your aftercare journey.'
+            ) : (
+              "Let's get started by creating your personalized care plan."
+            )}
           </p>
         </div>
 
@@ -125,14 +130,19 @@ export default function DashboardPage() {
           ) : (
             // Active plan exists - show dashboard cards
             <>
-              <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => router.push('/plan')}>
+              <Card className="hover:shadow-md transition-shadow cursor-pointer relative" onClick={() => router.push('/plan')}>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <FileText className="h-5 w-5" />
                     <span>My Care Plan</span>
                   </CardTitle>
-                  <CardDescription>
-                    View your simplified aftercare instructions
+                  <CardDescription className="flex items-center space-x-2">
+                    <span>View your simplified aftercare instructions</span>
+                    {isProcessing && (
+                      <span className="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full animate-pulse">
+                        Processing…
+                      </span>
+                    )}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>

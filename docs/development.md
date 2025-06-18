@@ -67,3 +67,10 @@ Established the foundational Next.js 14 project structure using the App Router, 
 
 **Summary:**
 Fixed the session-persistence problem that prevented navigation to `/dashboard` after clicking the magic link. Replaced the plain Supabase browser client with `createBrowserSupabaseClient()` from `@supabase/auth-helpers-nextjs`, which synchronises the cookie-based session established by the `/auth/callback` route. Added conditional logic in `lib/supabase.ts` to fallback to `createClient()` on the server. Updated project setup instructions: run `npm install` once, then start the dev server via `npm run dev`. Verified that users are now redirected to the dashboard and stay authenticated across refreshes.
+
+---
+**Task:** Plan Input Interface & Simplification Trigger
+**Completed On:** June 18, 2025
+
+**Summary:**
+Built the `/plan/create` page featuring a large textarea, validation, loading/error states, and automatic redirect on success. After inserting the new `care_plans` row the page now invokes the `simplify-plan` Edge Function via `supabase.functions.invoke`, passing the plan ID and original text. On the dashboard we surface a live "Processing..." badge and explanatory copy until `simplified_plan_json` is populated. This completes Phase 3 → Task 3.1 and unblocks work on the Plan View screen.
