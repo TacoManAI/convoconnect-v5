@@ -1,25 +1,4 @@
-# Test Care Plans
-
-This file contains sample discharge instructions that can be used to test the **simplify-plan** Edge Function and PlanView rendering.
-
----
-
-## Sample 1 – Knee Arthroscopy Discharge Instructions
-
-```
-Patient is discharged after left knee arthroscopy. 
-1. Take Ibuprofen 800 mg every 8 hours WITH food for pain. 
-2. Red flags: fever > 101°F, chills, uncontrolled bleeding, or calf swelling—call 911. 
-3. Keep incision clean and dry; change dressing daily. 
-4. Weight-bearing as tolerated but avoid stairs without assistance. 
-5. Begin gentle seated knee flexion exercises twice daily. 
-6. Follow-up with Orthopedics clinic in 7 days, phone (555) 123-4567. 
-7. No driving until off narcotic pain meds. Hydrate 2 L water/day.
-```
-
----
-
-## Sample 2 – Abdominal Surgery (Sigmoid Colectomy) Discharge Instructions
+# Sigmoid Colectomy – Discharge Instructions (Sample)
 
 ```
 Patient: JOHN DOE         MRN # 8473921  
@@ -89,5 +68,4 @@ Attending surgeon: Dr. Angela Harmon, MD, FACS
 Questions or concerns?  
 During office hours call (555) 244-8820. After hours call the on-call surgeon at (555) 244-8800 or present to the Emergency Department.
 
-(For testing purposes only — this is not real medical advice.)
-``` 
+(Testing data only – not real medical advice.) 
