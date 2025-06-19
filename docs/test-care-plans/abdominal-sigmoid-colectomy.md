@@ -67,5 +67,6 @@ Attending surgeon: Dr. Angela Harmon, MD, FACS
 
 Questions or concerns?  
 During office hours call (555) 244-8820. After hours call the on-call surgeon at (555) 244-8800 or present to the Emergency Department.
+```
 
 (Testing data only – not real medical advice.) 

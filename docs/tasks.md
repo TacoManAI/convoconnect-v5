@@ -47,13 +47,13 @@
 - [x] Add loading states and error handling
 - [x] Invoke Edge Function to simplify plan and badge indicator during processing
 
-### Task 3.2: AI Text Simplification Backend
-- [ ] Create Supabase Edge Function for plan ingestion
-- [ ] Integrate OpenRouter API with o3-mini model
-- [ ] Implement system prompt for medical text simplification
-- [ ] Add JSON validation for LLM response
-- [ ] Store original and simplified plans in database
-- [ ] Test with sample medical discharge instructions
+### Task 3.2: AI Text Simplification Backend ✅
+- [x] Create Supabase Edge Function for plan ingestion
+- [x] Integrate OpenRouter API with o3-mini model
+- [x] Implement system prompt for medical text simplification
+- [x] Add JSON validation for LLM response
+- [x] Store original and simplified plans in database
+- [x] Test with sample medical discharge instructions
 
 ### Task 3.3: Simplified Plan View (Screen 1)
 - [ ] Create PlanView component
