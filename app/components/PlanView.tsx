@@ -62,27 +62,32 @@ export function PlanView({ plan }: PlanViewProps) {
   }
 
   return (
-    <div className="space-y-8">
-      {SECTION_CONFIG.map(({ key, heading }) => {
+    <div className="space-y-8 divide-y divide-gray-300">
+      {SECTION_CONFIG.map(({ key, heading }, sectionIdx) => {
         const items = normalizeSection(plan[key])
         if (!items.length) return null
         return (
-          <section key={key} className="space-y-4">
-            <h2 className="text-xl font-bold text-gray-900">{heading}</h2>
-            <ul className="space-y-3">
-              {items.map((item, idx) => {
-                const Icon = ICON_MAP[item.icon] || Info
-                return (
-                  <li key={`${key}-${idx}`} className="flex items-start space-x-3">
-                    <Icon className="h-6 w-6 flex-shrink-0 text-primary" />
-                    <span className="text-lg text-gray-800 leading-relaxed">
-                      {item.instruction}
-                    </span>
-                  </li>
-                )
-              })}
-            </ul>
-          </section>
+          <React.Fragment key={key}>
+            <section className="space-y-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{heading}</h2>
+              <ul className="space-y-4">
+                {items.map((item, idx) => {
+                  const Icon = ICON_MAP[item.icon] || Info
+                  return (
+                    <li key={`${key}-${idx}`} className="flex items-start space-x-3">
+                      <Icon aria-hidden="true" className="h-6 w-6 flex-shrink-0 text-primary" />
+                      <span className="text-xl text-gray-900 leading-relaxed">
+                        {item.instruction}
+                      </span>
+                    </li>
+                  )
+                })}
+              </ul>
+            </section>
+            {sectionIdx < SECTION_CONFIG.length - 1 && (
+              <hr className="my-6 border-t border-gray-300" />
+            )}
+          </React.Fragment>
         )
       })}
     </div>
