@@ -70,7 +70,14 @@ Fixed the session-persistence problem that prevented navigation to `/dashboard` 
 
 ---
 **Task:** Plan Input Interface & Simplification Trigger
-**Completed On:** June 18, 2025
+**Completed On:** June 18 & 19, 2025
 
 **Summary:**
 Built the `/plan/create` page featuring a large textarea, validation, loading/error states, and automatic redirect on success. After inserting the new `care_plans` row the page now invokes the `simplify-plan` Edge Function via `supabase.functions.invoke`, passing the plan ID and original text. On the dashboard we surface a live "Processing..." badge and explanatory copy until `simplified_plan_json` is populated. This completes Phase 3 → Task 3.1 and unblocks work on the Plan View screen.
+
+---
+**Task:** AI Text Simplification Backend - Supabase Edge Function & OpenRouter Integration
+**Completed On:** June 19, 2025
+
+**Summary:**
+Implemented the `simplify-plan` Supabase Edge Function which calls the OpenRouter `o3-mini` model with a robust system prompt to convert discharge instructions into patient-friendly JSON. Added strict JSON schema validation and automatic retries for invalid responses. Persisted both the original instructions and the validated JSON back to the `care_plans` table. End-to-end tests with sample instructions confirm reliable, schema-compliant output. This completes Phase 3 → Task 3.2 and unblocks rendering of the Simplified Plan screen.

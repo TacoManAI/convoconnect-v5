@@ -156,16 +156,14 @@
 
 ## Current Blockers
 
-### ⚠️ Authentication Testing Issues
-**Status:** Active Blocker  
-**Impact:** Prevents full end-to-end testing of authentication flow  
-**Description:** While authentication system is implemented, testing is currently blocked due to issues with magic link email delivery and/or session verification in the development environment.
+_None at this time_
 
-**Next Steps:**
-1. Investigate email delivery configuration
-2. Test authentication flow thoroughly
-3. Verify user creation and session persistence
-4. Document proper testing procedures
+## Resolved Blockers
+
+### ✅ Authentication Testing Issues (Resolved: June 18, 2025)
+**Impact:** The authentication flow now works end-to-end after switching to `createBrowserSupabaseClient()` for cookie-based session synchronisation. Users are redirected to the dashboard and remain signed-in across refreshes.
+
+**Resolution Summary:** See docs/development.md entry dated June 18, 2025 for full details.
 
 ---
 
