@@ -1,6 +1,5 @@
 {
-  "/login/page": "app/login/page.js",
-  "/auth/callback/route": "app/auth/callback/route.js",
-  "/plan/create/page": "app/plan/create/page.js",
+  "/not-found": "app/not-found.js",
+  "/plan/page": "app/plan/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }
