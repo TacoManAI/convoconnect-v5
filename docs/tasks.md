@@ -56,12 +56,12 @@
 - [x] Test with sample medical discharge instructions
 
 ### Task 3.3: Simplified Plan View (Screen 1)
-- [ ] Create PlanView component
-- [ ] Implement icon mapping for lucide-react icons (siren, phone-call, pill, ban, walk, calendar, info)
-- [ ] Design responsive layout with large, high-contrast fonts
-- [ ] Render sections in order: Red Flags, Medications, Activities, Follow-up, Other
-- [ ] Create plan display page
-- [ ] Test with various plan structures
+- [x] Create PlanView component
+- [x] Implement icon mapping for lucide-react icons (siren, phone-call, pill, ban, walk, calendar, info)
+- [x] Design responsive layout with large, high-contrast fonts
+- [x] Render sections in order: Red Flags, Medications, Activities, Follow-up, Other
+- [x] Create plan display page
+- [x] Test with various plan structures
 
 ## Phase 4: AI Assistant & Voice Integration
 

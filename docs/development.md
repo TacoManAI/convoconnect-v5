@@ -81,3 +81,10 @@ Built the `/plan/create` page featuring a large textarea, validation, loading/er
 
 **Summary:**
 Implemented the `simplify-plan` Supabase Edge Function which calls the OpenRouter `o3-mini` model with a robust system prompt to convert discharge instructions into patient-friendly JSON. Added strict JSON schema validation and automatic retries for invalid responses. Persisted both the original instructions and the validated JSON back to the `care_plans` table. End-to-end tests with sample instructions confirm reliable, schema-compliant output. This completes Phase 3 → Task 3.2 and unblocks rendering of the Simplified Plan screen.
+
+---
+**Task:** Simplified Plan View UI – Build PlanView component & page
+**Completed On:** June 19, 2025
+
+**Summary:**
+Implemented the full read-only Plan View screen (Phase 3 → Task 3.3). Added `PlanView` React component with icon mapping, normalized JSON handling, larger typography, and explicit section ordering. Created `/plan` page with auth-gate, loading/empty states, back navigation, and responsive layout. Dashboard buttons were simplified for clearer testing. Added three edge-case discharge instruction files to `docs/test-care-plans/` and verified rendering across varied plan structures. All sub-items under Task 3.3 are now checked off in `tasks.md`.
