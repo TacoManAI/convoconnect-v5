@@ -2,6 +2,7 @@
 
 import { serve } from 'https://deno.land/std@0.224.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4'
+import { z } from 'https://deno.land/x/zod@v3.22.2/mod.ts'
 
 /*
   Edge Function: simplify-plan
@@ -18,7 +19,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4'
 // ------------------------------
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
-const OPENROUTER_MODEL = 'openrouter/o3-mini'
+const OPENROUTER_MODEL = 'openai/o3-mini'
 const SYSTEM_PROMPT =
   'You are a medical discharge simplifier. Return a JSON object with the keys red_flags, medications, activities, follow_up, other. Each key should map to an array of short, patient-friendly sentences extracted from the text.'
 
@@ -43,10 +44,22 @@ interface RequestPayload {
 
 type SimplifiedPlan = Record<string, unknown>
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers':
+    'authorization, apikey, content-type, x-client-info',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+}
+
 serve(async (req) => {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders, status: 200 })
+  }
+
   // Only accept POST requests
   if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 })
+    return new Response('Method not allowed', { headers: corsHeaders, status: 405 })
   }
 
   let payload: RequestPayload
@@ -64,7 +77,8 @@ serve(async (req) => {
 
   const OPENROUTER_API_KEY = Deno.env.get('OPENROUTER_API_KEY')
   const SUPABASE_URL = Deno.env.get('SUPABASE_URL')
-  const SERVICE_ROLE_KEY = Deno.env.get('SERVICE_ROLE_KEY')
+  const SERVICE_ROLE_KEY =
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || Deno.env.get('SERVICE_ROLE_KEY')
 
   if (!OPENROUTER_API_KEY || !SUPABASE_URL || !SERVICE_ROLE_KEY) {
     console.error('Missing environment variables')
@@ -120,10 +134,19 @@ serve(async (req) => {
     return new Response('Invalid LLM output', { status: 502 })
   }
 
-  // Basic schema validation
-  const valid = REQUIRED_KEYS.every((key) => Array.isArray(simplified[key]))
-  if (!valid) {
-    console.error('LLM JSON failed validation:', simplified)
+  // ----- Zod Schema Validation -----
+  const simplifiedPlanSchema = z.object({
+    red_flags: z.array(z.any()),
+    medications: z.array(z.any()),
+    activities: z.array(z.any()),
+    follow_up: z.array(z.any()),
+    other: z.union([z.string(), z.array(z.any())]),
+  })
+
+  const validation = simplifiedPlanSchema.safeParse(simplified)
+
+  if (!validation.success) {
+    console.error('Simplified plan failed schema validation:', validation.error.issues)
     return new Response('Malformed simplification', { status: 502 })
   }
 
@@ -143,7 +166,7 @@ serve(async (req) => {
   }
 
   return new Response(JSON.stringify({ success: true, simplified }), {
-    headers: { 'Content-Type': 'application/json' },
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     status: 200,
   })
 }) 
