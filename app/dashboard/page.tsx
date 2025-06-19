@@ -107,7 +107,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col md:flex-row md:flex-wrap md:space-x-4 space-y-3 md:space-y-0">
           {!activePlan ? (
             // No active plan - show create plan card
             <Card className="col-span-full">
@@ -130,61 +130,42 @@ export default function DashboardPage() {
           ) : (
             // Active plan exists - show dashboard cards
             <>
-              <Card className="hover:shadow-md transition-shadow cursor-pointer relative" onClick={() => router.push('/plan')}>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <FileText className="h-5 w-5" />
-                    <span>My Care Plan</span>
-                  </CardTitle>
-                  <CardDescription className="flex items-center space-x-2">
-                    <span>View your simplified aftercare instructions</span>
-                    {isProcessing && (
-                      <span className="text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full animate-pulse">
-                        Processing…
-                      </span>
-                    )}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Created {new Date(activePlan.created_at).toLocaleDateString()}
-                  </p>
-                </CardContent>
-              </Card>
+              {/* My Care Plan Button */}
+              <Button
+                size="lg"
+                className="flex items-center justify-center space-x-2 text-lg py-8 w-full md:w-auto"
+                onClick={() => router.push('/plan')}
+              >
+                <FileText className="h-6 w-6" />
+                <span>My Care Plan</span>
+                {isProcessing && (
+                  <span className="ml-2 text-xs font-medium bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-full animate-pulse">
+                    Processing…
+                  </span>
+                )}
+              </Button>
 
-              <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => router.push('/check-in')}>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <MessageSquare className="h-5 w-5" />
-                    <span>AI Check-in</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Start your daily check-in with the AI assistant
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button variant="outline" className="w-full">
-                    Start Check-in
-                  </Button>
-                </CardContent>
-              </Card>
+              {/* AI Check-in Button */}
+              <Button
+                size="lg"
+                variant="secondary"
+                className="flex items-center justify-center space-x-2 text-lg py-8 w-full md:w-auto"
+                onClick={() => router.push('/check-in')}
+              >
+                <MessageSquare className="h-6 w-6" />
+                <span>AI Check-in</span>
+              </Button>
 
-              <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => router.push('/summary')}>
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <BarChart3 className="h-5 w-5" />
-                    <span>Progress Summary</span>
-                  </CardTitle>
-                  <CardDescription>
-                    View your recovery progress and insights
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Track your healing journey
-                  </p>
-                </CardContent>
-              </Card>
+              {/* Progress Summary Button */}
+              <Button
+                size="lg"
+                variant="outline"
+                className="flex items-center justify-center space-x-2 text-lg py-8 w-full md:w-auto"
+                onClick={() => router.push('/summary')}
+              >
+                <BarChart3 className="h-6 w-6" />
+                <span>Progress Summary</span>
+              </Button>
             </>
           )}
         </div>

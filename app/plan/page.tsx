@@ -9,6 +9,8 @@ import type { SimplifiedPlan } from '@/lib/types'
 import { PlanView } from '@/app/components/PlanView'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
 import { Loader2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export default function PlanPage() {
   const [plan, setPlan] = useState<CarePlan | null>(null)
@@ -92,6 +94,13 @@ export default function PlanPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-8">
+      <div className="max-w-3xl mx-auto mb-4">
+        <Button variant="outline" onClick={() => router.push('/dashboard')} className="flex items-center space-x-2">
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back</span>
+        </Button>
+      </div>
+
       <div className="max-w-3xl mx-auto bg-white shadow-sm rounded-lg p-6">
         <h1 className="text-2xl font-bold mb-6 text-center">My Care Plan</h1>
         <PlanView plan={plan.simplified_plan_json as SimplifiedPlan} />
